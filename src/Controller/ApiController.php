@@ -33,13 +33,13 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api", name="api_restaurant_index", methods={"GET"})
+     * @Route("/api/employees", name="api_index", methods={"GET"})
      */
     public function index()
     {
 
         $employees = $this->getDoctrine()->getRepository(Employee::class)->findAll();
-
+        dump($employees);
         $data = $this->serializer->normalize($employees, null, ['groups' => 'all_employees']);
 
         $jsonContent = $this->serializer->serialize($data, 'json');
