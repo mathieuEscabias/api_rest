@@ -21,7 +21,7 @@ class Job
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("all_employees")
+     * @Groups({"all_employees","all_jobs"})
      */
     private $title;
 
