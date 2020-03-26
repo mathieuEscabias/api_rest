@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Employee;
 use App\Entity\Job;
+use DateTime;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
+use DateTimeInterface;
 
 class EmployeeController extends AbstractController
 {
@@ -85,7 +87,7 @@ class EmployeeController extends AbstractController
         $employee = new Employee();
         $employee->setFirstname($request->request->get('firstname'));
         $employee->setLastname($request->request->get('lastname'));
-        $employee->setEmployement($request->request->get('employement'));
+        $employee->setEmployement(DateTime::createFromFormat ( "Y-m-d" ,$request->request->get('employement')));
 
         $job = $this->getDoctrine()->getRepository(Job::class)->find( $request->request->get('job_id'));
 
@@ -97,4 +99,21 @@ class EmployeeController extends AbstractController
 
         return new Response("la donnée a été crée", 201);
     }
+
+    /**
+     * @Route("/employee/{employee}", name="employee_update", methods={"POST"})
+     */
+    public function update(Request $request, Employee $employee) {
+
+        $employee->setFirstname($request->request->get('firstname'));
+        $employee->setLastname($request->request->get('lastname'));
+        $employee->setEmployement(DateTime::createFromFormat ( "Y-m-d" ,$request->request->get('employement')));
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($employee);
+        $manager->flush();
+
+        return new Response("la donnée a été modifié", 201);
+    }
+
 }

@@ -96,7 +96,7 @@ class JobController extends AbstractController
     }
 
     /**
-     * @Route("/job/{job}", name="job_post", methods={"POST"})
+     * @Route("/job/{job}", name="job_update", methods={"POST"})
      */
     public function update(Request $request, Job $job) {
 
@@ -109,6 +109,5 @@ class JobController extends AbstractController
 
         return new Response("la donnée a été crée", 201);
     }
-
 
 }
