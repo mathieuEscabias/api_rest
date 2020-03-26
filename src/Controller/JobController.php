@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Job;
 use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class JobController extends AbstractController
     }
 
 
-    public function create( Request $request)
+    public function create()
     {
         $job = new Job;
         $job->setTitle('paysagiste');
@@ -38,7 +39,7 @@ class JobController extends AbstractController
         $job = new Job;
         $job->setTitle('senteur de  dessous de bras');
 
-        
+
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($job);
         $manager->flush;
